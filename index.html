@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CalciWorld – 100+ Calculators in One Place</title>
+<meta name="description" content="CalciWorld is an all-in-one hub of 100+ free online calculators for Finance, Education, Health, Engineering, Math, Business and Daily Life." />
+<meta name="keywords" content="calculator, EMI, BMI, GPA, SIP, scientific calculator, unit converter, tip calculator" />
+<meta name="author" content="CalciWorld" />
+<meta property="og:title" content="CalciWorld – All-in-One Calculator Hub" />
+<meta property="og:description" content="100+ Calculators in One Place: Finance, Education, Health, Engineering, Math, Business and Daily Life." />
+<meta property="og:type" content="website" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar glass">
+  <div class="brand">
+    <div class="logo">∑</div>
+    <h1>CalciWorld</h1>
+  </div>
+  <nav class="nav-links">
+    <a href="#popular">Popular</a>
+    <a href="#categories">Categories</a>
+    <a href="#features">Why Us</a>
+  </nav>
+  <nav class="nav-actions">
+    <div class="search-wrap">
+      <input id="globalSearch" type="search" placeholder="Search 100+ calculators…" aria-label="Search calculators" />
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner glass">
+      <div class="hero-copy">
+        <h2 class="hero-title">100+ Calculators in One Place</h2>
+        <p class="hero-sub">Smart, accurate, and beautifully designed calculators for finance, education, health, engineering, math, business, and daily life.</p>
+      </div>
+      <div class="hero-search">
+        <input id="heroSearch" type="search" placeholder="Try ‘EMI’, ‘BMI’, ‘GPA’…" aria-label="Search calculators" />
+        <button onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Browse All</button>
+      </div>
+      <div class="hero-actions">
+        <a href="#popular" class="btn btn-primary">View Popular</a>
+        <a href="#features" class="btn btn-secondary">Why CalciWorld</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong id="totalCount">0</strong><span>Calculators</span></div>
+        <div><strong>8</strong><span>Categories</span></div>
+        <div><strong>100%</strong><span>Free & offline</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recently used / Favorites / History -->
+  <section class="rail">
+    <div class="rail-block">
+      <h3>⭐ Favorites</h3>
+      <div id="favList" class="chips"></div>
+    </div>
+    <div class="rail-block">
+      <h3>🕘 Recently Used</h3>
+      <div id="recentList" class="chips"></div>
+    </div>
+    <div class="rail-block">
+      <h3>📝 Recent Results</h3>
+      <div id="historyList" class="chips"></div>
+    </div>
+  </section>
+
+  <!-- Popular -->
+  <section id="popular" class="section featured-section">
+    <h2 class="section-title">🔥 Popular Calculators</h2>
+    <div id="popularGrid" class="grid"></div>
+  </section>
+
+  <section id="features" class="section feature-cards">
+    <h2 class="section-title">Why Choose CalciWorld</h2>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast & Accurate</h3>
+        <p>Instant calculations with reliable formulas and modern input validation.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Realistic Design</h3>
+        <p>Clean UI with calculator-inspired panels, smart spacing, and premium visuals.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Mobile Friendly</h3>
+        <p>Adaptive layout for phones, tablets and desktops with smooth interactions.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories" class="section">
+    <h2 class="section-title">📚 All Categories</h2>
+    <div id="categoryArea"></div>
+  </section>
+
+</main>
+
+<!-- Calculator Modal -->
+<div id="calcModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-card glass">
+    <header class="modal-head">
+      <h3 id="modalTitle">Calculator</h3>
+      <div class="modal-actions">
+        <button id="favBtn" class="icon-btn" title="Favorite">☆</button>
+        <button id="closeModal" class="icon-btn" title="Close">✕</button>
+      </div>
+    </header>
+    <div id="modalBody" class="modal-body"></div>
+    <footer class="modal-foot">
+      <div id="resultBox" class="result"></div>
+      <div class="foot-actions">
+        <button id="calcBtn">▶ Compute</button>
+        <button id="copyBtn">📋 Copy</button>
+        <button id="shareBtn">🔗 Share</button>
+        <button id="printBtn">🖨 Print</button>
+        <button id="resetBtn" class="ghost">↺ Reset</button>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<footer id="footer" class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Categories</h4>
+      <ul>
+        <li>Math & Engineering Calculators</li>
+        <li>Everyday Calculators</li>
+        <li>Finance Calculators</li>
+        <li>Retirement Calculators</li>
+        <li>Investment Calculators</li>
+        <li>Business Calculators</li>
+        <li>Unit Converters</li>
+        <li>Insights</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Popular Tools</h4>
+      <ul>
+        <li>Retirement Architect</li>
+        <li>Loan & Mortgage</li>
+        <li>Income Tax Calculator</li>
+        <li>Currency Converter</li>
+        <li>Percentage Calculator</li>
+        <li>Grade Calculator</li>
+        <li>BMI & BMR</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#" class="footer-link" data-resource="about">About</a></li>
+        <li><a href="#" class="footer-link" data-resource="contact">Contact</a></li>
+        <li><a href="#" class="footer-link" data-resource="privacy">Privacy</a></li>
+        <li><a href="#" class="footer-link" data-resource="terms">Terms</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li>CalciWorld</li>
+        <li>All-in-one calculator engine</li>
+        <li>Free to use</li>
+        <li>Built for accuracy</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">© <span id="year"></span> CalciWorld. All rights reserved.</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
