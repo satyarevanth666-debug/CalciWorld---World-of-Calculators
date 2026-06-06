@@ -1,6 +1,6 @@
 # CalciWorld
 
-CalciWorld is a lightweight, client-side collection of 100+ calculators for finance, education, health, engineering, and daily life. It runs entirely in the browser — no server or signup required — and focuses on privacy, speed, and ease of use.
+CalciWorld is a lightweight, client-side collection of 70+ calculators for finance, education, health, engineering, and daily life. It runs entirely in the browser — no server or signup required — and focuses on privacy, speed, and ease of use.
 
 ---
 

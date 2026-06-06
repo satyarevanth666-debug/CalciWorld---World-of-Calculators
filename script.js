@@ -844,7 +844,7 @@ function openResource(key){
       html: `
         <div class="modal-desc">
           <p>We welcome feedback, bug reports, and suggestions for new calculators.</p>
-          <p>Email: <a href="mailto:hello@calciworld.app">hello@calciworld.app</a></p>
+          <p>Email: <a href="mailto:satyarevanth666@gmail.com">satyarevanth666@gmail.com</a></p>
           <p>Website: <a href="https://calciworld.app" target="_blank" rel="noreferrer">calciworld.app</a></p>
           <h4>Typical response</h4>
           <p>We try to respond to inquiries within a few business days. For urgent issues, include relevant screenshots and steps to reproduce.</p>
@@ -862,7 +862,7 @@ function openResource(key){
             <li>Local storage: we may store non-sensitive preferences (theme, recent calculators) locally to improve your experience.</li>
             <li>External links: following a link to an external site may expose your visit to that site; we are not responsible for third-party privacy practices.</li>
           </ul>
-          <p>If you have privacy concerns, email us at <a href="mailto:hello@calciworld.app">hello@calciworld.app</a>.</p>
+          <p>If you have privacy concerns, email us at <a href="mailto:satyarevanth666@gmail.com">satyarevanth666@gmail.com</a>.</p>
         </div>
       `,
       summary: 'Privacy and local data usage'
