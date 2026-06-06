@@ -604,10 +604,24 @@ window.addEventListener("keydown", e => { if (sciKeyHandler) sciKeyHandler(e); }
 
 /* ============== RENDER ============== */
 const $ = (s) => document.querySelector(s);
-document.documentElement.setAttribute("data-theme", STORE.theme);
-$("#themeToggle").textContent = STORE.theme === "dark" ? "☀" : "🌙";
-$("#totalCount").textContent = CALCS.length;
-$("#year").textContent = new Date().getFullYear();
+
+// Initialize on DOM ready to ensure elements exist
+function initializeUI(){
+  document.documentElement.setAttribute("data-theme", STORE.theme);
+  const themeToggle = $("#themeToggle");
+  if(themeToggle) themeToggle.textContent = STORE.theme === "dark" ? "☀" : "🌙";
+  const totalCount = $("#totalCount");
+  if(totalCount) totalCount.textContent = CALCS.length;
+  const yearEl = $("#year");
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+}
+
+// Ensure DOM is ready before initializing UI
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", initializeUI);
+} else {
+  initializeUI();
+}
 
 function cardHTML(c){
   return `<div class="card" data-id="${c.id}">
@@ -898,7 +912,33 @@ function openResource(key){
 
 // Wire footer resource buttons
 document.addEventListener('DOMContentLoaded', ()=>{
+  // Wire footer resource buttons
   document.querySelectorAll('.footer-link').forEach(btn=>{
-    btn.addEventListener('click', ()=> openResource(btn.dataset.resource));
+    btn.addEventListener('click', (e)=>{ e.preventDefault(); openResource(btn.dataset.resource); });
+  });
+  
+  // Make FAQ items open/close smoothly
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.addEventListener('toggle', ()=>{
+      // Smooth closing/opening handled by HTML details element
+    });
+  });
+  
+  // Wire nav link smooth scrolling
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(link=>{
+    link.addEventListener('click', (e)=>{
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target) {
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+  
+  // Close mobile nav on link click (if applicable)
+  document.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener('click', ()=>{
+      // Any mobile nav closing logic here
+    });
   });
 });
