@@ -25,6 +25,8 @@ const SITE_CONFIG = {
   twitterSite: "@CalciWorld"
 };
 
+let currentCalc = null, currentResult = "";
+
 const CALC_HELP = {
   emi: {
     description: "Use the EMI calculator to estimate monthly payments on secured or unsecured loans.",
@@ -886,11 +888,20 @@ function renderRails(){
   renderHistory();
 }
 
-let currentCalc=null, currentResult="";
-
-renderPopular(); renderCategories(); renderRails();
-  openFromRoute();
+function initializeApp(){
+  renderPopular();
+  renderCategories();
+  renderRails();
   window.addEventListener('popstate', openFromRoute);
+  openFromRoute();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+  initializeApp();
+}
+
 /* ============== EVENTS ============== */
 document.addEventListener("click", (e)=>{
   const card = e.target.closest("[data-id]");
@@ -1165,6 +1176,4 @@ document.addEventListener('DOMContentLoaded', ()=>{
       // Any mobile nav closing logic here
     });
   });
-
-  openFromRoute();
 });
