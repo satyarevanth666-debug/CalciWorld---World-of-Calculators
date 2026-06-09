@@ -886,6 +886,8 @@ function renderRails(){
   renderHistory();
 }
 
+let currentCalc=null, currentResult="";
+
 renderPopular(); renderCategories(); renderRails();
   openFromRoute();
   window.addEventListener('popstate', openFromRoute);
@@ -909,7 +911,6 @@ $("#heroSearch").addEventListener("input", e=>{
 });
 
 /* ============== MODAL ============== */
-let currentCalc=null, currentResult="";
 
 function createFieldGroup(calc){
   const grid = document.createElement("div");
