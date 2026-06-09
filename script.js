@@ -96,7 +96,7 @@ function setCanonical(url) {
 }
 
 function buildStructuredData(calc, faqEntries = []) {
-  const pageUrl = calc ? `${SITE_CONFIG.baseUrl}/#calculator/${calc.id}` : `${SITE_CONFIG.baseUrl}/`;
+  const pageUrl = calc ? `${SITE_CONFIG.baseUrl}/calculator/${calc.id}` : `${SITE_CONFIG.baseUrl}/`;
   const pageTitle = calc ? `${calc.name} | CalciWorld` : SITE_CONFIG.defaultTitle;
   const pageDescription = calc ? (calc.desc || SITE_CONFIG.defaultDescription) : SITE_CONFIG.defaultDescription;
   const graph = [
@@ -142,12 +142,22 @@ function refreshStructuredData(calc, faqEntries) {
   if (script) script.textContent = buildStructuredData(calc, faqEntries);
 }
 
-function parseHashCalculatorId() {
+function getCalculatorIdFromLocation() {
+  const pathname = window.location.pathname.replace(/\/+$|^\/+/g, '');
+  const pathMatch = pathname.match(/^(?:calculator|calc)\/(.+)$/i);
+  if (pathMatch) return pathMatch[1];
   const hash = window.location.hash.replace(/^#/, '');
   if (!hash) return null;
   if (hash.startsWith('calculator/')) return hash.split('/')[1];
   if (hash.startsWith('calc/')) return hash.split('/')[1];
-  return hash;
+  return null;
+}
+
+function openFromRoute() {
+  const id = getCalculatorIdFromLocation();
+  if (!id) return;
+  const calc = CALCS.find(c => c.id === id);
+  if (calc) openCalc(calc.id);
 }
 
 function setPageSeo(title, description, url, image, faqs) {
@@ -217,10 +227,7 @@ function renderCalculatorDetails(calc) {
 }
 
 function openFromHash() {
-  const id = parseHashCalculatorId();
-  if (!id) return;
-  const calc = CALCS.find(c => c.id === id);
-  if (calc) openCalc(calc.id);
+  openFromRoute();
 }
 
 /* ============== INPUT-BASED CALCULATORS ============== */
@@ -880,7 +887,8 @@ function renderRails(){
 }
 
 renderPopular(); renderCategories(); renderRails();
-
+  openFromRoute();
+  window.addEventListener('popstate', openFromRoute);
 /* ============== EVENTS ============== */
 document.addEventListener("click", (e)=>{
   const card = e.target.closest("[data-id]");
@@ -970,11 +978,11 @@ function openCalc(id){
   }
 
   body.appendChild(renderCalculatorDetails(c));
-  const seoUrl = `${SITE_CONFIG.baseUrl}/#calculator/${c.id}`;
+  const seoUrl = `${SITE_CONFIG.baseUrl}/calculator/${c.id}`;
   const seoDescription = c.desc || SITE_CONFIG.defaultDescription;
   const faqEntries = getCalculatorHelp(c).faqs;
   setPageSeo(`${c.name} | CalciWorld`, seoDescription, seoUrl, SITE_CONFIG.defaultImage, faqEntries);
-  history.replaceState(null, '', `#calculator/${c.id}`);
+  history.replaceState(null, '', `/calculator/${c.id}`);
 
   // Track recent
   STORE.recent = [id, ...STORE.recent.filter(x=>x!==id)].slice(0,8);
@@ -1008,9 +1016,9 @@ function recompute(){
   } catch(err){ setResult("Error: "+err.message, true); }
 }
 
-$("#closeModal").onclick = ()=> { sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '#'); };
-$("#calcModal").addEventListener("click", e=>{ if(e.target.id==="calcModal"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '#'); } });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '#'); } });
+$("#closeModal").onclick = ()=> { sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '/'); };
+$("#calcModal").addEventListener("click", e=>{ if(e.target.id==="calcModal"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '/'); } });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '/'); } });
 $("#calcBtn").onclick = recompute;
 $("#calcModal").addEventListener("keydown", e=>{ if(e.key==="Enter") { e.preventDefault(); recompute(); } });
 
@@ -1121,7 +1129,7 @@ function openResource(key){
   const fav = $("#favBtn"); if(fav) fav.style.display = 'none';
   setResult('', true);
   setDefaultSeo();
-  history.replaceState(null, '', '#');
+  history.replaceState(null, '', '/');
   $("#calcModal").classList.remove("hidden");
 }
 
@@ -1157,5 +1165,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   });
 
-  openFromHash();
+  openFromRoute();
 });
