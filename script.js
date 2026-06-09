@@ -17,6 +17,212 @@ const isCalcMatch = (calc, filter) => {
   return calc.inputs?.some(i => i.label.toLowerCase().includes(q) || i.name.toLowerCase().includes(q));
 };
 
+const SITE_CONFIG = {
+  baseUrl: "https://calci-world-world-of-calculators.vercel.app",
+  defaultTitle: "CalciWorld – 70+ Calculators in One Place",
+  defaultDescription: "CalciWorld gives you over 70 free calculators for finance, education, health, engineering, math, business, and daily life.",
+  defaultImage: "https://via.placeholder.com/1200x630/6366f1/ffffff?text=CalciWorld+Calculators",
+  twitterSite: "@CalciWorld"
+};
+
+const CALC_HELP = {
+  emi: {
+    description: "Use the EMI calculator to estimate monthly payments on secured or unsecured loans.",
+    formula: "EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)",
+    example: "Example: A ₹500000 loan at 8% p.a. for 60 months results in a monthly EMI based on the standard amortization formula.",
+    faqs: [
+      { q: "What do I enter for tenure?", a: "Enter the total number of monthly payments in the loan tenure." },
+      { q: "Can I calculate interest savings?", a: "Yes, compare EMI values for different rates and tenures to estimate savings." }
+    ]
+  },
+  bmi: {
+    description: "The BMI calculator estimates body mass index from weight and height to help classify health categories.",
+    formula: "BMI = weight(kg) / (height(m) × height(m))",
+    example: "Example: A person weighing 70 kg with height 170 cm has BMI 24.2, which is in the normal range.",
+    faqs: [
+      { q: "Is BMI a medical diagnosis?", a: "No, BMI is a screening tool. For health advice, consult a medical professional." },
+      { q: "What if my height is in feet/inches?", a: "Convert your height to centimeters first before entering it into the calculator." }
+    ]
+  },
+  sip: {
+    description: "Estimate future value of a monthly investment using expected annual returns.",
+    formula: "Future Value = P × ((1 + r)^n - 1) / r × (1 + r)",
+    example: "Example: Investing ₹5000 monthly for 10 years at 12% p.a. compounds to a higher corpus over time.",
+    faqs: [
+      { q: "Does this include annual inflation?", a: "This calculator shows nominal value; inflation is not included." },
+      { q: "What if I change the rate?", a: "A higher expected return increases the projected future value significantly over time." }
+    ]
+  },
+  tax: {
+    description: "Compute estimated income tax using common slab-based rules for quick planning.",
+    formula: "Tax = sum of rates × slab amounts depending on income brackets.",
+    example: "Example: For ₹8,00,000 annual income, the tool estimates tax using progressive slabs.",
+    faqs: [
+      { q: "Is this exact tax amount?", a: "This estimate uses simple slab rates and is not a substitute for official tax filings." }
+    ]
+  },
+  tip: {
+    description: "Quickly split a restaurant bill and calculate tip amount for one or more people.",
+    formula: "Tip = bill × tip% / 100; Total = bill + tip; Per person = Total / people.",
+    example: "Example: ₹1200 bill with 15% tip and 3 people results in ₹60 tip per person plus share of the bill.",
+    faqs: [
+      { q: "Can I share the result?", a: "Yes, use the Share button to copy the calculation summary." }
+    ]
+  }
+};
+
+function updateMetaTag(attribute, name, value) {
+  if (!value) return;
+  let element = document.head.querySelector(`meta[${attribute}="${name}"]`);
+  if (!element) {
+    element = document.createElement('meta');
+    element.setAttribute(attribute, name);
+    document.head.appendChild(element);
+  }
+  element.setAttribute('content', value);
+}
+
+function setMeta(name, content) { updateMetaTag('name', name, content); }
+function setProperty(property, content) { updateMetaTag('property', property, content); }
+
+function setCanonical(url) {
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.appendChild(canonical);
+  }
+  canonical.href = url;
+}
+
+function buildStructuredData(calc, faqEntries = []) {
+  const pageUrl = calc ? `${SITE_CONFIG.baseUrl}/#calculator/${calc.id}` : `${SITE_CONFIG.baseUrl}/`;
+  const pageTitle = calc ? `${calc.name} | CalciWorld` : SITE_CONFIG.defaultTitle;
+  const pageDescription = calc ? (calc.desc || SITE_CONFIG.defaultDescription) : SITE_CONFIG.defaultDescription;
+  const graph = [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_CONFIG.baseUrl}/#website`,
+      url: SITE_CONFIG.baseUrl + '/',
+      name: 'CalciWorld',
+      description: SITE_CONFIG.defaultDescription,
+      publisher: { '@type': 'Organization', name: 'CalciWorld' }
+    },
+    {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      isPartOf: { '@type': 'WebSite', '@id': `${SITE_CONFIG.baseUrl}/#website` },
+      mainEntity: {
+        '@type': 'WebApplication',
+        name: pageTitle,
+        description: pageDescription,
+        applicationCategory: 'Utilities',
+        operatingSystem: 'All'
+      }
+    }
+  ];
+  if (faqEntries.length) {
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: faqEntries.map(faq => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: { '@type': 'Answer', text: faq.a }
+      }))
+    });
+  }
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
+}
+
+function refreshStructuredData(calc, faqEntries) {
+  const script = document.getElementById('structuredData');
+  if (script) script.textContent = buildStructuredData(calc, faqEntries);
+}
+
+function parseHashCalculatorId() {
+  const hash = window.location.hash.replace(/^#/, '');
+  if (!hash) return null;
+  if (hash.startsWith('calculator/')) return hash.split('/')[1];
+  if (hash.startsWith('calc/')) return hash.split('/')[1];
+  return hash;
+}
+
+function setPageSeo(title, description, url, image, faqs) {
+  document.title = title;
+  setMeta('description', description);
+  setProperty('og:title', title);
+  setProperty('og:description', description);
+  setProperty('og:url', url);
+  setProperty('og:image', image);
+  setMeta('twitter:title', title);
+  setMeta('twitter:description', description);
+  setMeta('twitter:image', image);
+  setCanonical(url);
+  refreshStructuredData(currentCalc || null, faqs || []);
+}
+
+function setDefaultSeo() {
+  const url = `${SITE_CONFIG.baseUrl}/`;
+  setPageSeo(SITE_CONFIG.defaultTitle, SITE_CONFIG.defaultDescription, url, SITE_CONFIG.defaultImage, []);
+}
+
+function getCalculatorHelp(calc) {
+  const help = CALC_HELP[calc.id] || {
+    description: calc.desc ? calc.desc : `Use ${calc.name} for quick calculations in the ${calc.category.toLowerCase()} category.`,
+    formula: `Use the inputs above to compute ${calc.name.toLowerCase()} results.`,
+    example: `Example: enter values for ${calc.inputs?.map(i => i.label).join(', ')} and click Compute.`,
+    faqs: [
+      { q: 'How do I use this calculator?', a: 'Enter the requested values and then click Compute to view the result instantly.' },
+      { q: 'Can I adjust the values later?', a: 'Yes, simply update the inputs and the results will refresh automatically.' }
+    ]
+  };
+  const inputLabels = calc.inputs ? calc.inputs.map(i => i.label).join(', ') : 'the inputs shown above';
+  return {
+    description: help.description,
+    formula: help.formula,
+    example: help.example,
+    faqs: help.faqs,
+    inputLabels
+  };
+}
+
+function renderCalculatorDetails(calc) {
+  const help = getCalculatorHelp(calc);
+  const section = document.createElement('section');
+  section.className = 'calc-help';
+  section.innerHTML = `
+    <div class="help-card">
+      <h3>How this calculator works</h3>
+      <p>${help.description}</p>
+      <dl>
+        <dt>Formula</dt>
+        <dd>${help.formula}</dd>
+        <dt>Example</dt>
+        <dd>${help.example}</dd>
+      </dl>
+    </div>
+    <div class="help-card">
+      <h3>Calculator FAQs</h3>
+      <div class="help-faq-list">
+        ${help.faqs.map(item => `
+          <details class="faq-item"><summary>${item.q}</summary><p>${item.a}</p></details>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  return section;
+}
+
+function openFromHash() {
+  const id = parseHashCalculatorId();
+  if (!id) return;
+  const calc = CALCS.find(c => c.id === id);
+  if (calc) openCalc(calc.id);
+}
+
 /* ============== INPUT-BASED CALCULATORS ============== */
 const CALCS = [
 
@@ -763,6 +969,13 @@ function openCalc(id){
     setResult("Fill the fields to see the result", true);
   }
 
+  body.appendChild(renderCalculatorDetails(c));
+  const seoUrl = `${SITE_CONFIG.baseUrl}/#calculator/${c.id}`;
+  const seoDescription = c.desc || SITE_CONFIG.defaultDescription;
+  const faqEntries = getCalculatorHelp(c).faqs;
+  setPageSeo(`${c.name} | CalciWorld`, seoDescription, seoUrl, SITE_CONFIG.defaultImage, faqEntries);
+  history.replaceState(null, '', `#calculator/${c.id}`);
+
   // Track recent
   STORE.recent = [id, ...STORE.recent.filter(x=>x!==id)].slice(0,8);
   save("recent", STORE.recent); renderRails();
@@ -795,9 +1008,9 @@ function recompute(){
   } catch(err){ setResult("Error: "+err.message, true); }
 }
 
-$("#closeModal").onclick = ()=> { sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; };
-$("#calcModal").addEventListener("click", e=>{ if(e.target.id==="calcModal"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; } });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; } });
+$("#closeModal").onclick = ()=> { sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '#'); };
+$("#calcModal").addEventListener("click", e=>{ if(e.target.id==="calcModal"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '#'); } });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ sciKeyHandler = null; $("#calcModal").classList.add("hidden"); document.querySelector('.modal-foot')?.classList.remove('resource-mode'); $("#favBtn").style.display = ''; setDefaultSeo(); history.replaceState(null, '', '#'); } });
 $("#calcBtn").onclick = recompute;
 $("#calcModal").addEventListener("keydown", e=>{ if(e.key==="Enter") { e.preventDefault(); recompute(); } });
 
@@ -907,6 +1120,8 @@ function openResource(key){
   const foot = document.querySelector('.modal-foot'); if(foot) foot.classList.add('resource-mode');
   const fav = $("#favBtn"); if(fav) fav.style.display = 'none';
   setResult('', true);
+  setDefaultSeo();
+  history.replaceState(null, '', '#');
   $("#calcModal").classList.remove("hidden");
 }
 
@@ -941,4 +1156,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
       // Any mobile nav closing logic here
     });
   });
+
+  openFromHash();
 });

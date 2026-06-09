@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://calci-world-world-of-calculators.vercel.app/sitemap.xml
