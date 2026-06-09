@@ -144,22 +144,28 @@ function refreshStructuredData(calc, faqEntries) {
   if (script) script.textContent = buildStructuredData(calc, faqEntries);
 }
 
-function getCalculatorIdFromLocation() {
+function getRouteInfo() {
   const pathname = window.location.pathname.replace(/\/+$|^\/+/g, '');
-  const pathMatch = pathname.match(/^(?:calculator|calc)\/(.+)$/i);
-  if (pathMatch) return pathMatch[1];
   const hash = window.location.hash.replace(/^#/, '');
-  if (!hash) return null;
-  if (hash.startsWith('calculator/')) return hash.split('/')[1];
-  if (hash.startsWith('calc/')) return hash.split('/')[1];
+  const resourceKeys = ['about', 'contact', 'privacy', 'terms'];
+  if (resourceKeys.includes(hash)) return { type: 'resource', key: hash };
+  if (resourceKeys.includes(pathname)) return { type: 'resource', key: pathname };
+  const pathMatch = pathname.match(/^(?:calculator|calc)\/(.+)$/i);
+  if (pathMatch) return { type: 'calculator', id: pathMatch[1] };
+  if (hash.startsWith('calculator/')) return { type: 'calculator', id: hash.split('/')[1] };
+  if (hash.startsWith('calc/')) return { type: 'calculator', id: hash.split('/')[1] };
   return null;
 }
 
 function openFromRoute() {
-  const id = getCalculatorIdFromLocation();
-  if (!id) return;
-  const calc = CALCS.find(c => c.id === id);
-  if (calc) openCalc(calc.id);
+  const route = getRouteInfo();
+  if (!route) return;
+  if (route.type === 'calculator') {
+    const calc = CALCS.find(c => c.id === route.id);
+    if (calc) openCalc(calc.id);
+  } else if (route.type === 'resource') {
+    openResource(route.key);
+  }
 }
 
 function setPageSeo(title, description, url, image, faqs) {
@@ -893,6 +899,7 @@ function initializeApp(){
   renderCategories();
   renderRails();
   window.addEventListener('popstate', openFromRoute);
+  window.addEventListener('hashchange', openFromRoute);
   openFromRoute();
 }
 
@@ -1140,8 +1147,8 @@ function openResource(key){
   const foot = document.querySelector('.modal-foot'); if(foot) foot.classList.add('resource-mode');
   const fav = $("#favBtn"); if(fav) fav.style.display = 'none';
   setResult('', true);
-  setDefaultSeo();
-  history.replaceState(null, '', '/');
+  setPageSeo(`${doc.title} | CalciWorld`, `${doc.summary} — CalciWorld.`, `${SITE_CONFIG.baseUrl}/#${key}`, SITE_CONFIG.defaultImage, []);
+  history.replaceState(null, '', `#${key}`);
   $("#calcModal").classList.remove("hidden");
 }
 
