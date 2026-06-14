@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GST Calculator Guide - CalciWorld</title>
+<meta name="description" content="Learn how to calculate GST for products and reverse-calculate base price with the GST calculator guide." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar glass">
+  <div class="brand">
+    <div class="logo" aria-label="CalciWorld logo"><img src="logo.jpg" alt="CalciWorld logo" /></div>
+    <div class="brand-name">CalciWorld</div>
+  </div>
+  <nav class="nav-links" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+<main role="main">
+  <section class="section feature-cards">
+    <h1 class="section-title">GST Calculator Guide</h1>
+    <div class="content-copy">
+      <p>The GST calculator helps you add or remove GST from a price quickly. It is useful for small business pricing, invoice review, and understanding the tax component of purchases.</p>
+      <h2>How it works</h2>
+      <p>You can choose whether to add GST to a base amount or remove GST from a price that already includes tax.</p>
+      <h2>Formula used</h2>
+      <p>When adding GST:</p>
+      <pre>GST = Amount × GST % ÷ 100
+Total = Amount + GST</pre>
+      <p>When removing GST:</p>
+      <pre>Base = Total ÷ (1 + GST % ÷ 100)
+GST = Total − Base</pre>
+      <h2>Step-by-step instructions</h2>
+      <ol>
+        <li>Enter the amount or total price.</li>
+        <li>Select whether you are adding or removing GST.</li>
+        <li>Enter the GST percentage.</li>
+        <li>Calculate to see the final output.</li>
+      </ol>
+      <h2>Example</h2>
+      <p>Price = ₹1,000, GST = 18%</p>
+      <p>GST = ₹180, Total = ₹1,180.</p>
+      <h2>When to use it</h2>
+      <ul>
+        <li>Prepare invoices with correct tax calculation.</li>
+        <li>Check whether a given price includes GST.</li>
+        <li>Estimate final costs for purchases and services.</li>
+      </ul>
+      <p><a href="index.html#calculator/gst" class="btn btn-primary">Open GST Calculator</a></p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer-grid">
+    <div><h4>Resources</h4><ul><li><a href="index.html">Home</a></li><li><a href="guides.html">Guides</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul></div>
+  </div>
+  <div class="copyright">© <span id="year">2026</span> CalciWorld. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

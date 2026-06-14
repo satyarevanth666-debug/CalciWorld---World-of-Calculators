@@ -151,17 +151,33 @@ function getRouteInfo() {
   if (resourceKeys.includes(hash)) return { type: 'resource', key: hash };
   if (resourceKeys.includes(pathname)) return { type: 'resource', key: pathname };
   const pathMatch = pathname.match(/^(?:calculator|calc)\/(.+)$/i);
-  if (pathMatch) return { type: 'calculator', id: pathMatch[1] };
-  if (hash.startsWith('calculator/')) return { type: 'calculator', id: hash.split('/')[1] };
-  if (hash.startsWith('calc/')) return { type: 'calculator', id: hash.split('/')[1] };
+  if (pathMatch) return { type: 'calculator', id: pathMatch[1].toLowerCase() };
+  if (hash.startsWith('calculator/')) return { type: 'calculator', id: hash.split('/')[1].toLowerCase() };
+  if (hash.startsWith('calc/')) return { type: 'calculator', id: hash.split('/')[1].toLowerCase() };
   return null;
 }
+
+const CALC_ALIASES = {
+  percentage: 'perc',
+  percent: 'perc',
+  pchange: 'pchange',
+  gst: 'gst',
+  discount: 'disc',
+  tax: 'tax',
+  loan: 'loan',
+  emi: 'emi',
+  sip: 'sip',
+  bmi: 'bmi',
+  tip: 'tip',
+  age: 'age'
+};
 
 function openFromRoute() {
   const route = getRouteInfo();
   if (!route) return;
   if (route.type === 'calculator') {
-    const calc = CALCS.find(c => c.id === route.id);
+    const calcId = CALC_ALIASES[route.id] || route.id;
+    const calc = CALCS.find(c => c.id === calcId);
     if (calc) openCalc(calc.id);
   } else if (route.type === 'resource') {
     openResource(route.key);

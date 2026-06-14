@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://calci-world-world-of-calculators.vercel.app/</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/guides.html</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/emi.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/bmi.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/sip.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/tip.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/percentage.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/loan.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/age.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/gst.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/tax.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://calci-world-world-of-calculators.vercel.app/discount.html</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
   <url><loc>https://calci-world-world-of-calculators.vercel.app/calculator/cgpa</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
   <url><loc>https://calci-world-world-of-calculators.vercel.app/calculator/gpa</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
   <url><loc>https://calci-world-world-of-calculators.vercel.app/calculator/perc</loc><lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq></url>
