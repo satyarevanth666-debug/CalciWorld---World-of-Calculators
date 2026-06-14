@@ -147,7 +147,7 @@ function refreshStructuredData(calc, faqEntries) {
 function getRouteInfo() {
   const pathname = window.location.pathname.replace(/\/+$|^\/+/g, '');
   const hash = window.location.hash.replace(/^#/, '');
-  const resourceKeys = ['about', 'contact', 'privacy', 'terms'];
+  const resourceKeys = ['about', 'contact', 'privacy', 'terms', 'disclaimer'];
   if (resourceKeys.includes(hash)) return { type: 'resource', key: hash };
   if (resourceKeys.includes(pathname)) return { type: 'resource', key: pathname };
   const pathMatch = pathname.match(/^(?:calculator|calc)\/(.+)$/i);
@@ -192,6 +192,17 @@ function getCalculatorHelp(calc) {
     description: calc.desc ? calc.desc : `Use ${calc.name} for quick calculations in the ${calc.category.toLowerCase()} category.`,
     formula: `Use the inputs above to compute ${calc.name.toLowerCase()} results.`,
     example: `Example: enter values for ${calc.inputs?.map(i => i.label).join(', ')} and click Compute.`,
+    steps: [
+      `Enter ${calc.inputs?.map(i => i.label).join(', ')} into the fields above.`,
+      `Review your inputs and correct any values before computing.`,
+      `Click Compute or update the values to see the result instantly.`,
+      `Use the copy, share, or print buttons to save the result for later reference.`
+    ],
+    useCases: [
+      `Quickly compare multiple scenarios with different inputs.`,
+      `Support everyday planning without manually calculating formulas.`,
+      `Learn how each input affects the final outcome.`
+    ],
     faqs: [
       { q: 'How do I use this calculator?', a: 'Enter the requested values and then click Compute to view the result instantly.' },
       { q: 'Can I adjust the values later?', a: 'Yes, simply update the inputs and the results will refresh automatically.' }
@@ -202,6 +213,16 @@ function getCalculatorHelp(calc) {
     description: help.description,
     formula: help.formula,
     example: help.example,
+    steps: help.steps || [
+      `Enter ${inputLabels} into the fields above.`,
+      `Check your numbers and press Compute to see the result.`,
+      `Adjust values if needed to compare outcomes.`
+    ],
+    useCases: help.useCases || [
+      `Compare outcomes with different inputs.`,
+      `Save time on quick estimates and basic planning.`,
+      `See how changes affect your results instantly.`
+    ],
     faqs: help.faqs,
     inputLabels
   };
@@ -223,7 +244,15 @@ function renderCalculatorDetails(calc) {
       </dl>
     </div>
     <div class="help-card">
-      <h3>Calculator FAQs</h3>
+      <h3>Step-by-step guide</h3>
+      <ol>
+        ${help.steps.map(step => `<li>${step}</li>`).join('')}
+      </ol>
+      <h3>Use cases</h3>
+      <ul>
+        ${help.useCases.map(item => `<li>${item}</li>`).join('')}
+      </ul>
+      <h3>Frequently asked questions</h3>
       <div class="help-faq-list">
         ${help.faqs.map(item => `
           <details class="faq-item"><summary>${item.q}</summary><p>${item.a}</p></details>
@@ -845,7 +874,7 @@ if(document.readyState === "loading"){
 }
 
 function cardHTML(c){
-  return `<div class="card" data-id="${c.id}">
+  return `<div class="card" data-id="${c.id}" role="button" tabindex="0" onclick="openCalc('${c.id}')" onkeydown="if(event.key==='Enter'||event.key===' ') openCalc('${c.id}')">
     <div class="ico">${c.icon}</div>
     <div class="name">${c.name}</div>
     <div class="desc">${c.category}${c.desc?" • "+c.desc:""}</div>
@@ -1010,6 +1039,8 @@ function openCalc(id){
   $("#calcModal").classList.remove("hidden");
 }
 
+window.openCalc = openCalc;
+
 function setResult(text, empty=false){
   currentResult = text || "";
   const box = $("#resultBox");
@@ -1122,19 +1153,36 @@ function openResource(key){
       summary: 'Privacy and local data usage'
     },
     terms: {
-      title: 'Terms of Use',
+      title: 'Terms & Conditions',
       html: `
         <div class="modal-desc">
-          <p>By using CalciWorld you agree to the following:</p>
+          <p>By using CalciWorld you agree to the following terms and conditions:</p>
           <ul>
             <li>CalciWorld is provided "as is" without warranties of accuracy or fitness for a particular purpose.</li>
             <li>Results are for informational purposes only — verify before making legal, financial, or medical decisions.</li>
-            <li>We are not liable for damages or losses resulting from use of the calculators.</li>
+            <li>The site may change over time, and we are not responsible for errors or outdated content.</li>
+            <li>We are not liable for damages or losses resulting from the use of the calculators or guides.</li>
           </ul>
           <p>If you disagree with these terms, please discontinue using the site.</p>
         </div>
       `,
-      summary: 'Terms and disclaimers'
+      summary: 'Terms and conditions for CalciWorld use'
+    },
+    disclaimer: {
+      title: 'Disclaimer',
+      html: `
+        <div class="modal-desc">
+          <p>The calculators and content on CalciWorld are intended to provide general information only.</p>
+          <ul>
+            <li>Calculations are estimates and may not reflect real-world results.</li>
+            <li>Always verify important decisions with qualified professionals.</li>
+            <li>We do not guarantee accuracy, completeness, or suitability for any specific purpose.</li>
+            <li>Use of the site is at your own risk.</li>
+          </ul>
+          <p>For financial, legal, or medical advice, consult an expert before relying on these tools.</p>
+        </div>
+      `,
+      summary: 'Disclaimer and use-at-your-own-risk notice'
     }
   };
   const doc = docs[key];

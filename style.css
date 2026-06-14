@@ -126,6 +126,10 @@ body{
 .feature-icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;font-size:20px;margin-bottom:18px}
 .feature-card h3{margin:0 0 10px;font-size:18px;font-weight:800;color:var(--text)}
 .feature-card p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
+.content-section .content-copy{max-width:860px;margin:0 auto;display:grid;gap:18px}
+.content-section p{color:var(--muted);font-size:16px;line-height:1.9;max-width:780px}
+.content-section ul{list-style:disc;list-style-position:inside;color:var(--text);display:grid;gap:10px;padding-left:0;margin:0}
+.content-section li{font-size:15px;line-height:1.8;color:var(--muted)}
 .cat-title{font-size:18px;font-weight:700;margin:24px 0 12px;display:flex;align-items:center;gap:10px}
 .cat-title .pill{font-size:11px;background:var(--card-strong);padding:3px 10px;border-radius:999px;color:var(--muted);font-weight:600;border:1px solid var(--border)}
 
@@ -137,6 +141,7 @@ body{
   transition:transform .25s, box-shadow .25s, border-color .25s;
   display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;
 }
+.card:focus-visible{outline:2px solid rgba(99,102,241,.8);outline-offset:4px;}
 .card:hover{transform:translateY(-4px);box-shadow:0 20px 45px rgba(15,23,42,.18);border-color:rgba(99,102,241,.55)}
 .card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top left, rgba(255,255,255,.18), transparent 35%);opacity:.7;pointer-events:none;}
 .card .ico{font-size:28px}
