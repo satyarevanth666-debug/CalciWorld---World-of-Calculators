@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loan Calculator Guide - CalciWorld</title>
+<meta name="description" content="Learn how loan amount, interest rate, and tenure affect monthly payments using the loan calculator guide." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar glass">
+  <div class="brand">
+    <div class="logo" aria-label="CalciWorld logo"><img src="logo.jpg" alt="CalciWorld logo" /></div>
+    <div class="brand-name">CalciWorld</div>
+  </div>
+  <nav class="nav-links" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+<main role="main">
+  <section class="section feature-cards">
+    <h1 class="section-title">Loan Calculator Guide</h1>
+    <div class="content-copy">
+      <p>Use the loan calculator to estimate monthly payments when borrowing money for a home, car, education, or personal expense. This guide explains how principal, interest rate, and repayment tenure interact.</p>
+      <h2>What this calculator tells you</h2>
+      <p>The loan calculator uses the standard amortization formula to compute the monthly payment required to repay the loan over a fixed number of months.</p>
+      <h2>Formula used</h2>
+      <p>The monthly payment is calculated as:</p>
+      <pre>EMI = P × i × (1 + i)^n / ((1 + i)^n − 1)</pre>
+      <p>Where:</p>
+      <ul>
+        <li><strong>P</strong> = principal loan amount</li>
+        <li><strong>i</strong> = monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+        <li><strong>n</strong> = total number of monthly payments</li>
+      </ul>
+      <h2>Step-by-step instructions</h2>
+      <ol>
+        <li>Enter the loan amount you are borrowing.</li>
+        <li>Enter the annual interest rate.</li>
+        <li>Enter the repayment period in months.</li>
+        <li>Calculate to see the monthly payment, total payment, and total interest.</li>
+      </ol>
+      <h2>Example</h2>
+      <p>Loan = ₹500,000, Rate = 8% p.a., Tenure = 60 months.</p>
+      <p>Monthly EMI = ₹10,135 (approx). Total interest over 5 years is ₹108,100.</p>
+      <h2>Practical tips</h2>
+      <ul>
+        <li>Compare loans by keeping the amount constant and changing the interest rate or tenure.</li>
+        <li>A shorter tenure lowers interest but raises the monthly payment.</li>
+        <li>A lower interest rate saves money over the life of the loan.</li>
+      </ul>
+      <h2>FAQs</h2>
+      <h3>What should I use as tenure?</h3>
+      <p>Enter the total number of monthly payments. For example, 5 years is 60 months, 10 years is 120 months.</p>
+      <h3>Does this calculator include fees?</h3>
+      <p>It calculates interest using the loan amount only. Add extra fees separately to estimate your total cost.</p>
+      <h3>Is EMI the same as total cost?</h3>
+      <p>No. EMI is the monthly payment. Total cost includes the principal plus total interest paid over the loan term.</p>
+      <h2>Use this guide when</h2>
+      <ul>
+        <li>You want to compare loan offers quickly.</li>
+        <li>You need to estimate how much you can afford each month.</li>
+        <li>You want to see the impact of a lower interest rate or shorter loan term.</li>
+      </ul>
+      <p><a href="index.html#calculator/loan" class="btn btn-primary">Open Loan Calculator</a></p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer-grid">
+    <div><h4>Resources</h4><ul><li><a href="index.html">Home</a></li><li><a href="guides.html">Guides</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul></div>
+  </div>
+  <div class="copyright">© <span id="year">2026</span> CalciWorld. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
