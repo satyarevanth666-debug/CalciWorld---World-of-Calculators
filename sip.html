@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIP Calculator Guide - CalciWorld</title>
+<meta name="description" content="Learn how SIP investments grow over time, how to calculate future value, and why regular investing matters." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar glass">
+  <div class="brand">
+    <div class="logo" aria-label="CalciWorld logo"><img src="logo.jpg" alt="CalciWorld logo" /></div>
+    <div class="brand-name">CalciWorld</div>
+  </div>
+  <nav class="nav-links" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+<main role="main">
+  <section class="section feature-cards">
+    <h1 class="section-title">SIP Calculator Guide</h1>
+    <div class="content-copy">
+      <p>A Systematic Investment Plan (SIP) helps you invest a fixed amount regularly in mutual funds or other investment products. The SIP calculator estimates the future value of your monthly investments using a compound interest formula.</p>
+      <h2>What this calculator does</h2>
+      <p>The SIP calculator estimates how much your regular monthly contributions can grow to over time, based on an expected annual return rate.</p>
+      <h2>Formula used</h2>
+      <p>The future value of SIP is calculated as:</p>
+      <pre>FV = P × ((1 + r)^n - 1) / r × (1 + r)</pre>
+      <p>Where:</p>
+      <ul>
+        <li><strong>P</strong> = monthly investment amount</li>
+        <li><strong>r</strong> = monthly return rate (annual rate ÷ 12 ÷ 100)</li>
+        <li><strong>n</strong> = number of monthly investments</li>
+      </ul>
+      <h2>Step-by-step instructions</h2>
+      <ol>
+        <li>Enter the monthly investment amount.</li>
+        <li>Enter the expected annual return percentage.</li>
+        <li>Enter the investment duration in years.</li>
+        <li>Click calculate to see the projected future value.</li>
+      </ol>
+      <h2>Worked examples</h2>
+      <h3>Example 1</h3>
+      <p>Suppose you invest ₹5,000 per month for 10 years at 12% annual return.</p>
+      <p>Monthly rate = 0.12 ÷ 12 = 0.01</p>
+      <p>n = 10 × 12 = 120</p>
+      <p>The SIP calculator estimates a future value of approximately ₹14,56,000.</p>
+      <h3>Example 2</h3>
+      <p>Suppose you invest ₹10,000 per month for 15 years at 10% annual return.</p>
+      <p>This gives a future value of roughly ₹43,00,000, illustrating the power of long-term compounding.</p>
+      <h2>Use cases</h2>
+      <ul>
+        <li>Plan long-term savings for retirement or education.</li>
+        <li>Compare different monthly investment amounts.</li>
+        <li>Estimate how much your savings can grow over time.</li>
+        <li>See the effect of higher or lower expected returns.</li>
+      </ul>
+      <h2>FAQs</h2>
+      <h3>Can I use this for any investment type?</h3>
+      <p>The calculator shows estimates for regular monthly investments and assumed returns. It is useful for SIP-like investments, but actual returns may vary.</p>
+      <h3>What is the difference between SIP and lump sum?</h3>
+      <p>SIP invests regularly over time, which helps average out market fluctuations. A lump sum is a one-time investment.</p>
+      <h3>Do returns change every year?</h3>
+      <p>This calculator assumes a fixed annual return for modeling purposes. In reality, returns can change year to year.</p>
+      <h2>How to use this page</h2>
+      <p>Use the SIP calculator with your planned monthly contribution and expected return. If you're just starting, enter a conservative rate and compare different time horizons.</p>
+      <p><a href="index.html#calculator/sip" class="btn btn-primary">Open SIP Calculator</a></p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer-grid">
+    <div><h4>Resources</h4><ul><li><a href="index.html">Home</a></li><li><a href="guides.html">Guides</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul></div>
+  </div>
+  <div class="copyright">© <span id="year">2026</span> CalciWorld. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

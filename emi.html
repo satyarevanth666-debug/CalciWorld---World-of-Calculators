@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EMI Calculator Guide - CalciWorld</title>
+<meta name="description" content="Learn how to calculate your monthly EMI payments with formulas, examples, steps, and use cases." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar glass">
+  <div class="brand">
+    <div class="logo" aria-label="CalciWorld logo"><img src="logo.jpg" alt="CalciWorld logo" /></div>
+    <div class="brand-name">CalciWorld</div>
+  </div>
+  <nav class="nav-links" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+<main role="main">
+  <section class="section feature-cards">
+    <h1 class="section-title">EMI Calculator Guide</h1>
+    <div class="content-copy">
+      <p>The EMI calculator helps you estimate your monthly loan payments for home loans, auto loans, personal loans, and other financing options. EMI stands for Equated Monthly Installment, which is the amount you pay each month until the loan is fully repaid.</p>
+      <h2>What this calculator does</h2>
+      <p>This calculator takes three main inputs:</p>
+      <ul>
+        <li>Loan amount (principal)</li>
+        <li>Annual interest rate</li>
+        <li>Loan tenure in years or months</li>
+      </ul>
+      <p>It then calculates the monthly payment required to pay off the loan balance over the chosen term, including both principal and interest. This is useful when comparing loan offers or planning your budget.</p>
+      <h2>Formula used</h2>
+      <p>The EMI formula is:</p>
+      <pre>EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)</pre>
+      <p>Where:</p>
+      <ul>
+        <li><strong>P</strong> = principal loan amount</li>
+        <li><strong>r</strong> = monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+        <li><strong>n</strong> = number of monthly payments (loan tenure × 12)</li>
+      </ul>
+      <h2>Step-by-step instructions</h2>
+      <ol>
+        <li>Enter the total loan amount you want to borrow.</li>
+        <li>Enter the annual interest rate offered by the lender.</li>
+        <li>Enter the loan tenure in years (or use the equivalent months).</li>
+        <li>Click the calculator button to get the monthly EMI amount.</li>
+        <li>Review the monthly payment and adjust inputs to compare different loan scenarios.</li>
+      </ol>
+      <h2>Worked examples</h2>
+      <h3>Example 1: Home loan estimate</h3>
+      <p>Suppose you want a ₹30,00,000 home loan at 8.5% interest for 20 years.</p>
+      <ul>
+        <li>P = 30,00,000</li>
+        <li>Annual rate = 8.5%</li>
+        <li>Monthly rate = 0.085 ÷ 12 = 0.0070833</li>
+        <li>n = 20 × 12 = 240 months</li>
+      </ul>
+      <p>Using the formula, the monthly EMI will be about ₹26,112. This is the amount you would need to pay each month for 20 years to settle the loan.</p>
+      <h3>Example 2: Auto loan comparison</h3>
+      <p>Imagine a ₹10,00,000 car loan at 9% interest for 5 years.</p>
+      <ul>
+        <li>P = 10,00,000</li>
+        <li>Monthly rate = 0.09 ÷ 12 = 0.0075</li>
+        <li>n = 5 × 12 = 60 months</li>
+      </ul>
+      <p>The monthly payment becomes roughly ₹20,747. This helps you decide whether the monthly commitment fits your budget.</p>
+      <h2>Use cases</h2>
+      <ul>
+        <li>Compare home loan offers from different lenders.</li>
+        <li>Estimate how much principal you can afford based on your budget.</li>
+        <li>Evaluate the effect of longer versus shorter loan tenures.</li>
+        <li>Plan a monthly budget before taking a loan.</li>
+        <li>Check how a lower interest rate reduces your monthly payment.</li>
+      </ul>
+      <h2>Common questions</h2>
+      <h3>How much interest will I pay overall?</h3>
+      <p>The EMI calculator estimates the monthly amount only. To find total interest, multiply the EMI by the number of payments and subtract the principal amount.</p>
+      <h3>Can I use a different tenure unit?</h3>
+      <p>Yes, convert years to months immediately after entering the tenure. For example, 10 years equals 120 months.</p>
+      <h3>Does the calculator include additional fees?</h3>
+      <p>No, the basic EMI calculation only includes principal and interest. For a complete cost estimate, add any processing fees, insurance, or other charges separately.</p>
+      <h3>What happens if I prepay the loan?</h3>
+      <p>Prepayment can reduce your loan balance and interest charges, but this calculator assumes you pay the full scheduled EMI each month. Use your lender’s prepayment calculator or ask them how prepayments affect your loan.</p>
+      <h2>How to use this page</h2>
+      <p>Scroll down to the calculator section or click the button below to return to the EMI tool. Use the examples above as starting points, then change the amount, rate, or tenure to explore different scenarios.</p>
+      <p><a href="index.html#calculator/emi" class="btn btn-primary">Open EMI Calculator</a></p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer-grid">
+    <div><h4>Resources</h4><ul><li><a href="index.html">Home</a></li><li><a href="guides.html">Guides</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul></div>
+  </div>
+  <div class="copyright">© <span id="year">2026</span> CalciWorld. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
